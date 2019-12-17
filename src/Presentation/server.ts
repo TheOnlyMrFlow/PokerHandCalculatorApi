@@ -19,9 +19,9 @@ Object.keys(CardFace)
     console.log(face);
   });
 
-app.listen(3000, () => {
+app.listen(80, () => {
   // tslint:disable-next-line:no-console
-  console.log("Listening on port 3000 ...");
+  console.log("Listening on port 80 ...");
 });
 
 app.post("/solveround", (req, res, next) => {
