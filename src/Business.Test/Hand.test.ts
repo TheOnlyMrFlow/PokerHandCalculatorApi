@@ -82,4 +82,10 @@ describe("Getting best five", () => {
     const hand = new Hand("QD JD 6S KD TD AD 6H");
     expect(hand.BestFiveCards[0][0]).equal(Combination.RoyalFlush);
   });
+
+  it("should find high card", () => {
+    const hand = new Hand("QD JC");
+    expect(hand.BestFiveCards[0][0]).equal(Combination.HighCard);
+  });
+
 });

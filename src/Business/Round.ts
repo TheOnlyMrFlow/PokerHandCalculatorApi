@@ -7,7 +7,8 @@ class Round {
 
     constructor(players: Map<string, string>, communityCards: string) {
         players.forEach((cards, name) => {
-            const h = new Hand(cards + " " + communityCards);
+
+            const h = new Hand((cards + " " + communityCards).trim());
             this.players.push(new Player(h, name));
         });
     }
