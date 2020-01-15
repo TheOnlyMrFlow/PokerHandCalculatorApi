@@ -38,13 +38,17 @@ app.post("/solveround", (req, res, next) => {
   const round: Round = new Round(players, req.body.community_cards);
 
   const response: any = {};
-  let i = 0;
+  let i = 1;
+  let previous: Player = null;
   round.OrderedPlayers.forEach((p: Player) => {
     response[p.name] = {
       combinations: p.hand.BestFiveCards,
       rank: i
     };
-    i++;
+    if (previous == null || round.comparePlayers(previous, p) !== 0) {
+      i++;
+    }
+    previous = p;
   });
 
   res.json(response);
