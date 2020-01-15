@@ -19,14 +19,9 @@ class Round {
             const combinationsCountP1 = p1.hand.BestFiveCards.length;
             const combinationsCountP2 = p1.hand.BestFiveCards.length;
             const minCombinationsCount = Math.min(combinationsCountP1, combinationsCountP2);
-            // tslint:disable-next-line:no-console
-            console.log(minCombinationsCount);
+
             for (let i = 0; i < minCombinationsCount; i++) {
                 const diff = p2.hand.BestFiveCards[i][0] - p1.hand.BestFiveCards[i][0];
-                // tslint:disable-next-line:no-console
-                console.log(p1.hand.BestFiveCards[i][0]);
-                // tslint:disable-next-line:no-console
-                console.log(p2.hand.BestFiveCards[i][0]);
                 if (diff !== 0) {
                     return diff;
                 }
@@ -40,6 +35,8 @@ class Round {
                 combP2Values.sort((one, two) => (one > two ? -1 : 1));
                 for (let j = 0; j < length; j++) {
                     const diffCard = combP2Values[j] - combP1Values[j];
+                    // tslint:disable-next-line:no-console
+                    console.log(combP2Values[j], combP1Values[j]);
                     if (diffCard !== 0) {
                         return diff;
                     }
