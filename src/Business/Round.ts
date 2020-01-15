@@ -26,8 +26,8 @@ class Round {
                     return diff;
                 }
 
-                const combP1: Card[] = Object.assign([], p1.hand.BestFiveCards[i][1].length);
-                const combP2: Card[] = Object.assign([], p2.hand.BestFiveCards[i][1].length);
+                const combP1: Card[] = Object.assign([], p1.hand.BestFiveCards[i][1]);
+                const combP2: Card[] = Object.assign([], p2.hand.BestFiveCards[i][1]);
                 const length = combP1.length;
                 const combP1Values: number[] = combP1.map(c => c.ValueOfFace);
                 const combP2Values: number[] = combP2.map(c => c.ValueOfFace);
