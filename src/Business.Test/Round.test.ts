@@ -6,11 +6,11 @@ import { Round } from "../Business/Round";
 describe("Ordering player", () => {
   it("should return players in the right order", () => {
     const players = new Map<string, string>();
-    players.set("Michel", "AS 8D");
-    players.set("Robert", "TS QS");
-    players.set("Edgard", "3H 4H");
+    players.set("Michel", "AS 8D"); // AS AD 8D 2C 6H TC 5D
+    players.set("Robert", "AH QS"); // AH AD TC QS 2C 6H 5D
+    players.set("Edgard", "3H 4H"); // AD 2C 3H 4H 5D 6H TC
 
-    const comCards = "AD 2C 6H TC 5D 9S";
+    const comCards = "AD 2C 6H TC 5D";
 
     const round = new Round(players, comCards);
 
