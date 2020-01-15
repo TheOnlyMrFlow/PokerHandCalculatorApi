@@ -18,6 +18,8 @@ class Round {
             const combinationsCountP1 = p1.hand.BestFiveCards.length;
             const combinationsCountP2 = p1.hand.BestFiveCards.length;
             const minCombinationsCount = Math.min(combinationsCountP1, combinationsCountP2);
+            // tslint:disable-next-line:no-console
+            console.log(minCombinationsCount);
             for (let i = 0; i < minCombinationsCount; i++) {
                 const diff = p2.hand.BestFiveCards[i][0] - p1.hand.BestFiveCards[i][0];
                 // tslint:disable-next-line:no-console
