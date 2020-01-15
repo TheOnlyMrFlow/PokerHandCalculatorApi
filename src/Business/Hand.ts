@@ -62,54 +62,55 @@ class Hand {
     if (fourOfAkind.length !== 0) {
       usedCards = new Set<Card>([...fourOfAkind[0]]);
       result.push([Combination.FourOfAkind, [...fourOfAkind[0]]]);
-    }
+    } else {
+      const triples =
+        from(this.FindTuples(3))
+          .orderBy(triple => from([...triple]).first().ValueOfFace)
+          .toArray();
 
-    const triples =
-      from(this.FindTuples(3))
-        .orderBy(triple => from([...triple]).first().ValueOfFace)
-        .toArray();
+      const pairs =
+        from(this.FindTuples(2))
+          .orderBy(pair => from([...pair]).first().ValueOfFace)
+          .toArray();
 
-    const pairs =
-      from(this.FindTuples(2))
-        .orderBy(pair => from([...pair]).first().ValueOfFace)
-        .toArray();
+      if (triples.length !== 0 && pairs.length !== 0) {
+        // usedCards = new Set<Card>([...triples[0], ...pairs[0]]);
+        // result.push([Combination.FullHouse, [...triples[0]].concat([...pairs[0]])]);
+        return new Array<[Combination, Card[]]>([
+          Combination.FullHouse,
+          Array.from([...triples[0]].concat([...pairs[0]]))
+        ]);
+      }
 
-    if (triples.length !== 0 && pairs.length !== 0) {
-      // usedCards = new Set<Card>([...triples[0], ...pairs[0]]);
-      // result.push([Combination.FullHouse, [...triples[0]].concat([...pairs[0]])]);
-      return new Array<[Combination, Card[]]>([
-        Combination.FullHouse,
-        Array.from([...triples[0]].concat([...pairs[0]]))
-      ]);
-    }
+      if (flushes.length !== 0) {
+        const highestFlush = this.FindHighestOfFlushes(flushes);
+        return new Array<[Combination, Card[]]>([
+          Combination.Flush,
+          Array.from(highestFlush)
+        ]);
+      }
 
-    if (flushes.length !== 0) {
-      const highestFlush = this.FindHighestOfFlushes(flushes);
-      return new Array<[Combination, Card[]]>([
-        Combination.Flush,
-        Array.from(highestFlush)
-      ]);
-    }
+      if (straights.length !== 0) {
+        const highestStraight = this.FindHighestOfFlushes(straights);
+        return new Array<[Combination, Card[]]>([
+          Combination.Straight,
+          Array.from(highestStraight)
+        ]);
+      }
 
-    if (straights.length !== 0) {
-      const highestStraight = this.FindHighestOfFlushes(straights);
-      return new Array<[Combination, Card[]]>([
-        Combination.Straight,
-        Array.from(highestStraight)
-      ]);
-    }
+      if (triples.length !== 0) {
+        usedCards = new Set<Card>([...triples[0]]);
+        result.push([Combination.ThreeOfAKind, [...triples[0]]]);
+      }
 
-    if (triples.length !== 0) {
-      usedCards = new Set<Card>([...triples[0]]);
-      result.push([Combination.ThreeOfAKind, [...triples[0]]]);
-    }
+      if (pairs.length >= 2) {
+        usedCards = new Set<Card>([...pairs[0], ...pairs[1]]);
+        result.push([Combination.TwoPairs, [...pairs[0]].concat([...pairs[1]])]);
+      } else if (pairs.length === 1) {
+        usedCards = new Set<Card>([...pairs[0]]);
+        result.push([Combination.Pair, [...pairs[0]]]);
+      }
 
-    if (pairs.length >= 2) {
-      usedCards = new Set<Card>([...pairs[0], ...pairs[1]]);
-      result.push([Combination.TwoPairs, [...pairs[0]].concat([...pairs[1]])]);
-    } else if (pairs.length === 1) {
-      usedCards = new Set<Card>([...pairs[0]]);
-      result.push([Combination.Pair, [...pairs[0]]]);
     }
 
     const unusedCardsSet = new Set(
