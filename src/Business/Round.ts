@@ -38,7 +38,7 @@ class Round {
                     // tslint:disable-next-line:no-console
                     console.log(combP2Values[j], combP1Values[j]);
                     if (diffCard !== 0) {
-                        return diff;
+                        return diffCard;
                     }
                 }
             }
