@@ -39,11 +39,15 @@ app.post("/solveround", (req, res, next) => {
 
   const response: any = {};
   let i = 0;
+  let step = 1;
   let previous: Player = null;
   round.OrderedPlayers.forEach((p: Player) => {
 
     if (previous == null || round.comparePlayers(previous, p) !== 0) {
-      i++;
+      i += step;
+      step = 1;
+    } else {
+      step++;
     }
     previous = p;
 
